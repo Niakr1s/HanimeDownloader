@@ -19,8 +19,6 @@ from Crypto.Util.Padding import pad, unpad
 from Cryptodome.Cipher import AES
 
 from helpers.config import MAX_WORKERS
-from helpers.general_utils import create_download_directory
-
 from helpers.downloader.crawler_utils import (
     fetch_streams,
     format_filename,
@@ -29,6 +27,7 @@ from helpers.downloader.crawler_utils import (
     get_hanime_title,
     select_and_validate_stream,
 )
+from helpers.general_utils import create_download_directory
 
 if TYPE_CHECKING:
     from argparse import Namespace
@@ -49,6 +48,7 @@ class EpisodeDownloader:
         max_workers: int = MAX_WORKERS,
     ) -> None:
         """Initialize the EpisodeDownloader instance."""
+        self._url = url
         self.episode_id = get_episode_id(url)
         self.live_manager = live_manager
         self.args = args
@@ -86,6 +86,7 @@ class EpisodeDownloader:
         final_path = Path(self._download_path) / filename
 
         if final_path.exists():
+            print("Skipping: ", self._url)
             return
 
         self.live_manager.add_overall_task(filename, num_tasks=1)
@@ -120,7 +121,10 @@ class EpisodeDownloader:
 
     # Private methods
     def _decrypt_with_padding(
-        self, data: bytes, decryptor: CbcMode, segment_uri: str,
+        self,
+        data: bytes,
+        decryptor: CbcMode,
+        segment_uri: str,
     ) -> bytes:
         """Decrypt the given data with padding handling."""
         padded_data = pad(data, decryptor.block_size)
