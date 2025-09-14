@@ -15,6 +15,7 @@ from argparse import Namespace
 from hanime_downloader import (
     add_disable_ui_argument,
     add_resolution_argument,
+    add_urls_argument,
     initialize_managers,
     validate_and_download,
 )
@@ -28,6 +29,7 @@ def parse_arguments() -> Namespace:
     parser = argparse.ArgumentParser(description="Acquire URL and other arguments.")
     add_disable_ui_argument(parser)
     add_resolution_argument(parser)
+    add_urls_argument(parser)
     return parser.parse_args()
 
 
@@ -54,11 +56,11 @@ def main() -> None:
     args = parse_arguments()
 
     # Read and process URLs, ignoring empty lines
-    urls = [url.strip() for url in read_file(URLS_FILE) if url.strip()]
+    urls = [url.strip() for url in read_file(args.urls) if url.strip()]
     process_urls(urls, args)
 
     # Clear URLs file
-    write_file(URLS_FILE)
+    # write_file(URLS_FILE)
 
 
 if __name__ == "__main__":

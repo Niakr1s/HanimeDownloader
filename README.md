@@ -99,6 +99,8 @@ To batch download from multiple album URLs, you can use the `main.py` script. Th
 
 1. Create a file named `URLs.txt` in the root of your project, listing each URL on a new line.
 
+You can provide custom path to `URLs.txt` file via --urls flag.
+
 - Example of `URLs.txt`:
 
 ```

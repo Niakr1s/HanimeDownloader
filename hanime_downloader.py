@@ -14,6 +14,7 @@ Usage:
 
 from __future__ import annotations
 
+from helpers.config import URLS_FILE
 import logging
 import sys
 from argparse import ArgumentParser, Namespace
@@ -91,6 +92,15 @@ def add_resolution_argument(parser: ArgumentParser) -> None:
         type=str,
         default="720p",
         help="Set the resolution (e.g., '480p', '720p')",
+    )
+
+def add_urls_argument(parser: ArgumentParser) -> None:
+    """Add the --urls argument to any parser."""
+    parser.add_argument(
+        "--urls",
+        type=str,
+        default=URLS_FILE,
+        help="Provide URLs file",
     )
 
 def parse_arguments() -> Namespace:
