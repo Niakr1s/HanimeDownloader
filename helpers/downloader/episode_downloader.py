@@ -21,7 +21,7 @@ from Cryptodome.Cipher import AES
 from helpers.config import MAX_WORKERS
 from helpers.general_utils import create_download_directory
 
-from .crawler_utils import (
+from helpers.downloader.crawler_utils import (
     fetch_streams,
     format_filename,
     get_episode_id,
@@ -83,6 +83,11 @@ class EpisodeDownloader:
 
         # Format the episode filename
         filename = format_filename(self._streams, self.episode_id, self.args.resolution)
+        final_path = Path(self._download_path) / filename
+
+        if final_path.exists():
+            return
+
         self.live_manager.add_overall_task(filename, num_tasks=1)
 
         try:
@@ -111,7 +116,6 @@ class EpisodeDownloader:
         key_data = httpx.get(key_uri).content
         decryptor = AES.new(key_data, AES.MODE_CBC)
 
-        final_path = Path(self._download_path) / filename
         self._download_and_decrypt_segments(final_path, segment_uris, decryptor)
 
     # Private methods
