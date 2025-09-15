@@ -15,6 +15,8 @@ from typing import TYPE_CHECKING
 from rich.console import Group
 from rich.live import Live
 
+from helpers.log import logger
+
 if TYPE_CHECKING:
     from .log_manager import LoggerTable
     from .progress_manager import ProgressManager
@@ -70,6 +72,7 @@ class LiveManager:
     def update_log(self, event: str, details: str) -> None:
         """Log an event and refreshes the live display."""
         self.logger.log(event, details, disable_ui=self.disable_ui)
+        logger.error(event, details)
 
         if not self.disable_ui:
             self.live.update(self._render_live_view())

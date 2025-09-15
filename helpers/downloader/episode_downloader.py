@@ -77,7 +77,6 @@ class EpisodeDownloader:
 
         def log_and_exit(event: str, message: str) -> None:
             self.live_manager.update_log(event, message)
-            logger.error(event, message)
             sys.exit(1)
 
         # Initialize the download process
@@ -145,7 +144,6 @@ class EpisodeDownloader:
                 f"Padding error for segment {segment_uri}. "
                 "Proceeding with partial data.",
             )
-            logger.error("Decryption error", self._url)
             return decrypted_data
 
     def _download_segment(
@@ -171,7 +169,6 @@ class EpisodeDownloader:
                         f"Retrying to download segment {segment_uri}... "
                         f"({attempt + 1}/{retries})",
                     )
-                    logger.error("Request error", self._url)
                     continue
 
             else:
@@ -188,7 +185,6 @@ class EpisodeDownloader:
             "Failed segment download",
             f"Failed to download {segment_uri}",
         )
-        logger.error("Failed segment download", self._url)
         return None
 
     def _download_and_decrypt_segments(
@@ -221,7 +217,6 @@ class EpisodeDownloader:
                         "Missing video segment",
                         f"Segment {segment_id} is missing, skipping.",
                     )
-                    logger.error("Missing video segment", self._url)
                     continue
 
                 video.write(segment_data)
