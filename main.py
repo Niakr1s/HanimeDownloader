@@ -13,21 +13,19 @@ import sys
 from argparse import Namespace
 
 from hanime_downloader import (
-    add_disable_ui_argument,
     add_resolution_argument,
     add_urls_argument,
     initialize_managers,
     validate_and_download,
 )
-from helpers.config import URLS_FILE
-from helpers.file_utils import read_file, write_file
+from helpers.file_utils import read_file
 from helpers.general_utils import clear_terminal
 
 
 def parse_arguments() -> Namespace:
     """Parse only the --disable-ui and --resolution arguments."""
     parser = argparse.ArgumentParser(description="Acquire URL and other arguments.")
-    add_disable_ui_argument(parser)
+    # add_disable_ui_argument(parser)
     add_resolution_argument(parser)
     add_urls_argument(parser)
     return parser.parse_args()
@@ -35,7 +33,7 @@ def parse_arguments() -> Namespace:
 
 def process_urls(urls: list[str], args: Namespace) -> None:
     """Validate and downloads items for a list of URLs."""
-    live_manager = initialize_managers(disable_ui=args.disable_ui)
+    live_manager = initialize_managers(disable_ui=True)
 
     try:
         with live_manager.live:
