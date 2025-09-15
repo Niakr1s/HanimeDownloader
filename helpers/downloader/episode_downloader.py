@@ -91,6 +91,8 @@ class EpisodeDownloader:
             logger.info("Skipping", self._url)
             return
 
+        logger.info("Starting", self._url)
+
         self.live_manager.add_overall_task(filename, num_tasks=1)
 
         try:
