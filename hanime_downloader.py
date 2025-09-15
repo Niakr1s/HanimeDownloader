@@ -27,6 +27,7 @@ from helpers.downloader.crawler_utils import (
 )
 from helpers.downloader.episode_downloader import EpisodeDownloader
 from helpers.general_utils import clear_terminal
+from helpers.log import logger
 from helpers.managers.live_manager import LiveManager
 from helpers.managers.log_manager import LoggerTable
 from helpers.managers.progress_manager import ProgressManager
@@ -60,6 +61,7 @@ def handle_download_process(
 
 
 def validate_and_download(url: str, live_manager: LiveManager, args: Namespace) -> None:
+    logger.info("Checking", url)
     """Validate the provided URL, and initiate the download process."""
     episode_downloader = EpisodeDownloader(
         url=url,
