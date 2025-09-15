@@ -48,7 +48,6 @@ class LiveManager:
             else nullcontext()
         )
         self.start_time = time.time()
-        self.update_log("Script started", "The script has started execution.")
 
     def add_overall_task(self, description: str, num_tasks: int) -> None:
         """Call ProgressManager to add an overall task."""
@@ -85,12 +84,6 @@ class LiveManager:
     def stop(self) -> None:
         """Stop the live display and log the execution time."""
         execution_time = self._compute_execution_time()
-
-        # Log the execution time in hh:mm:ss format
-        self.update_log(
-            "Script ended",
-            f"The script has finished execution. Execution time: {execution_time}",
-        )
 
         if not self.disable_ui:
             self.live.stop()
