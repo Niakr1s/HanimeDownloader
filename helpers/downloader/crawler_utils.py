@@ -1,20 +1,17 @@
 """Module for extracting media download links from video pages."""
 
-import logging
-import re
-import sys
 from typing import Any
 
 import httpx
 
-from helpers.config import API_URL, HANIME_NAME_PATTERN, RESOLUTION_MAP, VIDEO_URL
+from helpers.config import API_URL, RESOLUTION_MAP, VIDEO_URL
 
 
 def get_episode_id(url: str) -> None:
     """Validate the provided URL against a predefined pattern."""
-    if not re.compile(HANIME_NAME_PATTERN, re.IGNORECASE).match(url):
-        logging.warning("Invalid URL.")
-        sys.exit(0)
+    # if not re.compile(HANIME_NAME_PATTERN, re.IGNORECASE).match(url):
+    # logging.warning("Invalid URL.")
+    # sys.exit(0)
 
     return url.rstrip("/").split("/")[-1]
 
