@@ -14,11 +14,11 @@ Usage:
 
 from __future__ import annotations
 
-from helpers.config import URLS_FILE
 import logging
 import sys
 from argparse import ArgumentParser, Namespace
 
+from helpers.config import URLS_FILE
 from helpers.downloader.crawler_utils import (
     generate_all_episode_urls,
     get_all_episodes_ids,
@@ -82,6 +82,7 @@ def add_disable_ui_argument(parser: ArgumentParser) -> None:
         "--disable-ui",
         action="store_true",
         help="Disable the user interface",
+        default=True,
     )
 
 
@@ -94,6 +95,7 @@ def add_resolution_argument(parser: ArgumentParser) -> None:
         help="Set the resolution (e.g., '480p', '720p')",
     )
 
+
 def add_urls_argument(parser: ArgumentParser) -> None:
     """Add the --urls argument to any parser."""
     parser.add_argument(
@@ -102,6 +104,7 @@ def add_urls_argument(parser: ArgumentParser) -> None:
         default=URLS_FILE,
         help="Provide URLs file",
     )
+
 
 def parse_arguments() -> Namespace:
     """Parse command-line arguments."""
