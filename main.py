@@ -10,6 +10,7 @@ Usage:
 
 import argparse
 import sys
+import time
 from argparse import Namespace
 
 from hanime_downloader import (
@@ -20,6 +21,7 @@ from hanime_downloader import (
 )
 from helpers.file_utils import read_file
 from helpers.general_utils import clear_terminal
+from helpers.log import logger
 
 
 def parse_arguments() -> Namespace:
@@ -35,14 +37,19 @@ def process_urls(urls: list[str], args: Namespace) -> None:
     """Validate and downloads items for a list of URLs."""
     live_manager = initialize_managers(disable_ui=True)
 
-    try:
-        with live_manager.live:
-            for url in urls:
-                validate_and_download(url, live_manager, args=args)
-            live_manager.stop()
-
-    except KeyboardInterrupt:
-        sys.exit(1)
+    with live_manager.live:
+        for url in urls:
+            while True:
+                try:
+                    validate_and_download(url, live_manager, args=args)
+                    live_manager.stop()
+                    break
+                except KeyboardInterrupt:
+                    sys.exit(1)
+                except Exception:
+                    live_manager.stop()
+                    logger.info("Retrying", url)
+                    time.sleep(10)
 
 
 def main() -> None:
