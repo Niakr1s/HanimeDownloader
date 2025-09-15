@@ -82,7 +82,6 @@ def add_disable_ui_argument(parser: ArgumentParser) -> None:
         "--disable-ui",
         action="store_true",
         help="Disable the user interface",
-        default=True,
     )
 
 
