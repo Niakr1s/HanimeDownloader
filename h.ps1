@@ -1,0 +1,1 @@
+$env:DOWNLOAD_FOLDER="h:\hentai\raw"; .venv\Scripts\python.exe main.py --urls "h:\hentai\urls\test.txt"

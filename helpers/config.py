@@ -7,14 +7,18 @@ into a single location.
 # ============================
 # API / Video Endpoints
 # ============================
-API_URL = "https://hanime.tv/api/v8"           # The API endpoint for Hanime video data.
+import os
+
+API_URL = "https://hanime.tv/api/v8"  # The API endpoint for Hanime video data.
 VIDEO_URL = "https://hanime.tv/videos/hentai"  # The base URL for Hanime video pages.
 
 # ============================
 # Paths and Files
 # ============================
-DOWNLOAD_FOLDER = "Downloads"  # The folder where downloaded files will be stored.
-URLS_FILE = "URLs.txt"         # The file containing the list of URLs to process.
+DOWNLOAD_FOLDER = (
+    os.environ["DOWNLOAD_FOLDER"] or "Downloads"
+)  # The folder where downloaded files will be stored.
+URLS_FILE = "URLs.txt"  # The file containing the list of URLs to process.
 
 # ============================
 # Regex Patterns
